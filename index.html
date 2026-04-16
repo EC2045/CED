@@ -110,10 +110,12 @@
             background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%);
             border: 1px solid rgba(255,255,255,0.05);
             transition: all 0.3s ease;
+            display: block; /* aタグとして機能させるため */
         }
         .partner-card:hover {
-            border-color: rgba(6, 182, 212, 0.3);
-            background: rgba(255,255,255,0.05);
+            border-color: rgba(6, 182, 212, 0.6);
+            background: rgba(255,255,255,0.08);
+            transform: translateY(-2px);
         }
     </style>
 </head>
@@ -131,9 +133,9 @@
         { id: 'CED-06', name: '余剰エネルギー', en: 'Residual Energy', desc: '未消費の残量エネルギーが蓄積したもの。空間への滞留性が高く、回収には物理的接触を要する。', icon: 'battery-charging', color: 'emerald', detail: '変換効率100%に達しなかった全てのエネルギーロスが次元の隙間に溜まったもの。', risk: '低：局所的な空間の歪み。' }
     ],
     partners: [
-        { name: '架空疑問展', role: 'エネルギー観測・展示', desc: '未定義の現象を視覚化し、市民への啓蒙を行う文化的研究組織。' },
-        { name: '世界記号統一団体', role: '規格標準化', desc: '異次元エネルギーの計量単位および安全記号を世界的に統一する管理機関。' },
-        { name: 'Node LABO', role: '共同実用化研究', desc: '抽出されたエネルギーを次世代デバイスへ最適化する先端技術研究所。' }
+        { name: '架空疑問展', role: 'エネルギー観測・展示', desc: '未定義の現象を視覚化し、市民への啓蒙を行う文化的研究組織。', url: 'https://shun240523-stack.github.io/Symbolencyclopedia/' },
+        { name: '世界記号統一団体', role: '規格標準化', desc: '異次元エネルギーの計量単位および安全記号を世界的に統一する管理機関。', url: 'https://shun240523-stack.github.io/USSO/' },
+        { name: 'Node LABO', role: '共同実用化研究', desc: '抽出されたエネルギーを次世代デバイスへ最適化する先端技術研究所。', url: 'https://shun240523-stack.github.io/NODE-LAB/' }
     ]
 }" x-init="
     const timer = setInterval(() => {
@@ -248,14 +250,17 @@
                         </div>
                         <div class="grid md:grid-cols-3 gap-4 md:gap-6">
                             <template x-for="p in partners" :key="p.name">
-                                <div class="partner-card p-8 rounded-[2.5rem] space-y-4">
+                                <a :href="p.url" class="partner-card p-8 rounded-[2.5rem] space-y-4">
                                     <div class="flex items-center gap-2">
                                         <div class="w-2 h-2 rounded-full bg-cyan-500 shadow-[0_0_8px_rgba(6,182,212,0.8)]"></div>
                                         <span class="text-[9px] font-black text-slate-500 uppercase tracking-widest" x-text="p.role"></span>
                                     </div>
-                                    <h3 class="text-xl font-bold" x-text="p.name"></h3>
+                                    <div class="flex justify-between items-center">
+                                        <h3 class="text-xl font-bold" x-text="p.name"></h3>
+                                        <i data-lucide="external-link" class="w-4 h-4 text-slate-600"></i>
+                                    </div>
                                     <p class="text-xs text-slate-500 leading-relaxed" x-text="p.desc"></p>
-                                </div>
+                                </a>
                             </template>
                         </div>
                     </div>
